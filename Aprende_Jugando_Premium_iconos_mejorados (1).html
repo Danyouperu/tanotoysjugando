@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Aprende Jugando</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#EAF2F8;
+  --card:#FFFFFF;
+  --primary:#5F7D95;
+  --secondary:#A8C3A0;
+  --text:#44515C;
+  --muted:#6B7C88;
+  --border:#E8DDCF;
+  --shadow:0 6px 18px rgba(68,81,92,.08);
+  --active-text:#FFFFFF;
+  --soft:#F3E9D2;
+}
+
+body.dark{
+  --bg:#263B5A;
+  --card:#4D6785;
+  --primary:#F3E9D2;
+  --secondary:#F3E9D2;
+  --text:#FAFAF7;
+  --muted:#F3E9D2;
+  --border:#607A95;
+  --shadow:0 8px 20px rgba(0,0,0,.18);
+  --active-text:#263B5A;
+  --soft:#F3E9D2;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  min-height:100vh;
+  overflow-x:hidden;
+  background:var(--bg);
+  font-family:'Nunito',sans-serif;
+  color:var(--text);
+}
+
+body{
+  padding:0 14px 20px;
+  transition:background .25s ease,color .25s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* HEADER */
+.header{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 0 10px;
+}
+
+.header h1{
+  font-size:clamp(20px,4.7vw,28px);
+  color:var(--primary);
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+/* THEME BUTTON */
+.theme-btn{
+  position:absolute;
+  right:0;
+  top:8px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  padding:4px 6px;
+  color:var(--primary);
+}
+
+.theme-btn .star{
+  font-size:22px;
+  line-height:1;
+  opacity:.92;
+  transform:translateY(1px);
+}
+
+.theme-btn .label{
+  font-size:8px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.2px;
+  opacity:.95;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:6px;
+  justify-content:center;
+  margin-bottom:13px;
+  flex-wrap:wrap;
+}
+
+.tab-btn{
+  min-width:72px;
+  min-height:64px;
+  padding:8px 10px 7px;
+  border-radius:18px;
+  border:2px solid var(--primary);
+  background:var(--card);
+  color:var(--primary);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  box-shadow:var(--shadow);
+  transition:transform .14s ease, background .14s ease, color .14s ease, border-color .14s ease;
+  font-family:'Nunito',sans-serif;
+  font-weight:800;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.tab-btn:active{
+  transform:scale(.94);
+}
+
+.tab-btn.active{
+  background:var(--primary);
+  color:var(--active-text);
+  border-color:var(--primary);
+}
+
+.tab-icon{
+  font-size:26px;
+  line-height:1;
+}
+
+.tab-text{
+  font-size:10px;
+  line-height:1;
+  letter-spacing:.2px;
+}
+
+/* PAGES */
+.page{
+  display:none;
+}
+.page.active{
+  display:block;
+}
+
+/* GRID */
+.grid-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.grid{
+  display:grid;
+  gap:8px;
+  width:100%;
+  max-width:420px;
+}
+
+.g5{ grid-template-columns:repeat(5,1fr); }
+.g4{ grid-template-columns:repeat(4,1fr); }
+.g3{ grid-template-columns:repeat(3,1fr); }
+
+/* CELLS */
+.cell{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--card);
+  border-radius:16px;
+  cursor:pointer;
+  padding:7px 4px 6px;
+  gap:3px;
+  min-height:72px;
+  box-shadow:var(--shadow);
+  border:1.5px solid var(--border);
+  transition:transform .12s cubic-bezier(.34,1.56,.64,1), background .2s ease, color .2s ease, border-color .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.cell:active{
+  transform:scale(.88);
+}
+
+.cell.selected{
+  background:var(--soft);
+  animation:bpop .22s cubic-bezier(.34,1.8,.64,1);
+}
+
+@keyframes bpop{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.12); }
+  100%{ transform:scale(1); }
+}
+
+.big-num{
+  font-size:26px;
+  color:var(--text);
+  line-height:1;
+  font-weight:800;
+}
+
+.word-num{
+  font-size:8px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.05;
+  font-weight:700;
+}
+
+.big-letter{
+  font-size:28px;
+  color:var(--text);
+  line-height:1;
+  font-weight:800;
+}
+
+.ani-emoji{
+  font-size:22px;
+  line-height:1;
+}
+
+.animal-name{
+  font-size:8px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.05;
+  font-weight:700;
+}
+
+.animal-media{
+  width:54px;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.animal-img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.animal-emoji{
+  font-size:34px;
+  line-height:1;
+}
+
+.popup-animal{
+  width:150px;
+  height:150px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto;
+}
+
+.cell.vowel-cell{
+  min-height:88px;
+}
+.vowel-cell .big-letter{
+  font-size:36px;
+}
+.vowel-cell .ani-emoji{
+  font-size:24px;
+}
+
+/* COLORS */
+.color-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  max-width:320px;
+  margin:0 auto;
+  padding:10px 0 0;
+}
+
+.color-cell{
+  width:100%;
+  aspect-ratio:1;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:var(--shadow);
+  border:2px solid rgba(255,255,255,.32);
+  transition:transform .12s cubic-bezier(.34,1.56,.64,1);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.color-cell:active{
+  transform:scale(.88);
+}
+
+.c-name{
+  font-size:10px;
+  font-family:'Nunito',sans-serif;
+  text-align:center;
+  line-height:1.05;
+  font-weight:800;
+  padding:0 6px;
+}
+
+/* OVERLAY POPUP */
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:150;
+  background:rgba(68,81,92,.52);
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.popup{
+  background:var(--card);
+  border-radius:28px;
+  padding:30px 24px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  animation:popIn .35s ease;
+  max-width:260px;
+  width:84%;
+  border:2px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+@keyframes popIn{
+  0%{ transform:scale(.35); opacity:0; }
+  100%{ transform:scale(1); opacity:1; }
+}
+
+.popup-big{
+  font-size:96px;
+  line-height:1;
+  color:var(--text);
+  font-family:'Nunito',sans-serif;
+  font-weight:800;
+}
+
+.popup-name{
+  font-size:24px;
+  color:var(--primary);
+  font-family:'Nunito',sans-serif;
+  font-weight:800;
+}
+
+/* COLOR FLASH */
+.color-flash{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+}
+
+.color-flash.show{
+  display:flex;
+}
+
+.flash-name{
+  font-size:52px;
+  font-family:'Nunito',sans-serif;
+  text-align:center;
+  font-weight:800;
+}
+
+/* SLEEP */
+.sleep-screen{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:#263B5A;
+}
+
+.sleep-screen.show{
+  display:block;
+}
+
+.stars-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.sleep-msg{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:28px;
+  text-align:center;
+  font-family:'Nunito',sans-serif;
+  color:#FAFAF7;
+  font-size:16px;
+  font-weight:800;
+  opacity:.92;
+  letter-spacing:.2px;
+}
+
+/* MOON BUTTON */
+.moon-btn{
+  position:absolute;
+  top:18px;
+  right:18px;
+  z-index:2;
+  background:none;
+  border:none;
+  font-size:32px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  opacity:0;
+  transition:opacity .9s ease;
+}
+
+.moon-btn.show{
+  opacity:1;
+}
+
+/* RESPONSIVE */
+@media (max-width:390px){
+  body{ padding:0 10px 18px; }
+  .tab-btn{ min-width:67px; min-height:62px; padding:7px 8px 6px; }
+  .tab-icon{ font-size:24px; }
+  .tab-text{ font-size:9px; }
+  .grid{ gap:7px; }
+  .cell{ min-height:68px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌱 Aprende Jugando</h1>
+
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Cambiar modo">
+    <span class="star">⭐</span>
+    <span class="label" id="theme-label">Modo noche</span>
+  </button>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tb-n1" onclick="goPage('n1')">
+    <span class="tab-icon">1️⃣</span>
+    <span class="tab-text">1–30</span>
+  </button>
+
+  <button class="tab-btn" id="tb-n2" onclick="goPage('n2')">
+    <span class="tab-icon">2️⃣</span>
+    <span class="tab-text">31–50</span>
+  </button>
+
+  <button class="tab-btn" id="tb-ani" onclick="goPage('ani')">
+    <span class="tab-icon">🐾</span>
+    <span class="tab-text">Animales</span>
+  </button>
+
+  <button class="tab-btn" id="tb-vow" onclick="goPage('vow')">
+    <span class="tab-icon">🅰️</span>
+    <span class="tab-text">Vocales</span>
+  </button>
+
+  <button class="tab-btn" id="tb-abc" onclick="goPage('abc')">
+    <span class="tab-icon">🔤</span>
+    <span class="tab-text">Abecedario</span>
+  </button>
+
+  <button class="tab-btn" id="tb-col" onclick="goPage('col')">
+    <span class="tab-icon">🎨</span>
+    <span class="tab-text">Colores</span>
+  </button>
+
+  <button class="tab-btn" id="tb-off" onclick="startSleep()">
+    <span class="tab-icon">😴</span>
+    <span class="tab-text">Apagar</span>
+  </button>
+</div>
+
+<div class="page active" id="page-n1">
+  <div class="grid-wrap">
+    <div class="grid g5" id="grid-n1"></div>
+  </div>
+</div>
+
+<div class="page" id="page-n2">
+  <div class="grid-wrap">
+    <div class="grid g5" id="grid-n2"></div>
+  </div>
+</div>
+
+<div class="page" id="page-ani">
+  <div class="grid-wrap">
+    <div class="grid g4" id="grid-ani"></div>
+  </div>
+</div>
+
+<div class="page" id="page-vow">
+  <div class="grid-wrap">
+    <div class="grid g3" id="grid-vow"></div>
+  </div>
+</div>
+
+<div class="page" id="page-abc">
+  <div class="grid-wrap">
+    <div class="grid g5" id="grid-abc"></div>
+  </div>
+</div>
+
+<div class="page" id="page-col">
+  <div class="color-grid" id="grid-col"></div>
+</div>
+
+<!-- OVERLAY POPUP -->
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <div id="popup-content"></div>
+    <div class="popup-name" id="popup-name"></div>
+  </div>
+</div>
+
+<!-- COLOR FLASH -->
+<div class="color-flash" id="color-flash">
+  <div class="flash-name" id="flash-name"></div>
+</div>
+
+<!-- SLEEP -->
+<div class="sleep-screen" id="sleep-screen">
+  <canvas class="stars-canvas" id="stars-canvas"></canvas>
+  <div class="sleep-msg">Buen descanso 🌙</div>
+  <button class="moon-btn" id="moon-btn" onclick="wakeUp()" aria-label="Volver">
+    🌙
+  </button>
+</div>
+
+<script>
+const numWords = [
+  '',
+  'Uno','Dos','Tres','Cuatro','Cinco','Seis','Siete','Ocho','Nueve','Diez',
+  'Once','Doce','Trece','Catorce','Quince','Dieciséis','Diecisiete','Dieciocho','Diecinueve','Veinte',
+  'Veintiuno','Veintidós','Veintitrés','Veinticuatro','Veinticinco','Veintiséis','Veintisiete','Veintiocho','Veintinueve','Treinta',
+  'Treinta y uno','Treinta y dos','Treinta y tres','Treinta y cuatro','Treinta y cinco',
+  'Treinta y seis','Treinta y siete','Treinta y ocho','Treinta y nueve','Cuarenta',
+  'Cuarenta y uno','Cuarenta y dos','Cuarenta y tres','Cuarenta y cuatro','Cuarenta y cinco',
+  'Cuarenta y seis','Cuarenta y siete','Cuarenta y ocho','Cuarenta y nueve','Cincuenta'
+];
+
+const animals = [
+  {name:'Perro',icon:'🐶'},{name:'Gato',icon:'🐱'},{name:'Gallina',icon:'🐔'},
+  {name:'Vaca',icon:'🐮'},{name:'Caballo',icon:'🐴'},{name:'Burro',icon:'🫏'},
+  {name:'Llama',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Wikipedia%2020%20Llamita.svg'},
+  {name:'Alpaca',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Alpaca%20standing.svg'},
+  {name:'Conejo',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/WP25%20Rabbit%20-%20black.svg'},
+  {name:'Loro',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-parrot.svg'},
+  {name:'Mono',icon:'🐒'},{name:'Cóndor',icon:'🦅'},
+  {name:'Cocodrilo',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-crocodile.svg'},
+  {name:'Tucán',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Toucan%20by%20gnokii.svg'},
+  {name:'Oso',icon:'🐻'},
+  {name:'Delfín',icon:'🐬'},{name:'Hormiga',icon:'🐜'},{name:'Mariposa',icon:'🦋'},
+  {name:'Abeja',icon:'🐝'},{name:'León',icon:'🦁'},{name:'Elefante',icon:'🐘'},
+  {name:'Pingüino',icon:'🐧'},{name:'Colibrí',icon:'🐦'},{name:'Iguana',icon:'🦎'},
+  {name:'Tiburón',icon:'🦈'},{name:'Vicuña',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Vicu%C3%B1a%20standing.svg'},
+  {name:'Tortuga',icon:'🐢'},{name:'Rana',icon:'🐸'},
+  {name:'Pato',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-duck.svg'},
+  {name:'Pez',icon:'🐟'}
+];
+
+const vowels = [
+  {l:'A',e:'🦅',word:'Águila'},
+  {l:'E',e:'🐘',word:'Elefante'},
+  {l:'I',e:'🦎',word:'Iguana'},
+  {l:'O',e:'🐻',word:'Oso'},
+  {l:'U',e:'🍇',word:'Uva'}
+];
+
+const abcData = [
+  {l:'A',e:'🦅'},{l:'B',e:'🦬'},{l:'C',e:'🐊'},{l:'D',e:'🐬'},{l:'E',e:'🐘'},
+  {l:'F',e:'🦩'},{l:'G',e:'🦍'},{l:'H',e:'🦛'},{l:'I',e:'🦎'},{l:'J',e:'🐆'},
+  {l:'L',e:'🦁'},{l:'M',e:'🐒'},{l:'N',e:'🦋'},{l:'Ñ',e:'🐦'},{l:'O',e:'🐻'},
+  {l:'P',e:'🦜'},{l:'Q',e:'🐐'},{l:'R',e:'🐸'},{l:'S',e:'🐍'},{l:'T',e:'🐢'},
+  {l:'U',e:'🦄'},{l:'V',e:'🦊'},{l:'W',e:'🐺'},{l:'X',e:'🦂'},{l:'Y',e:'🦌'},
+  {l:'Z',e:'🦓'}
+];
+
+const colors = [
+  {name:'Rojo suave',hex:'#C97A7A',tc:'#FAFAF7'},
+  {name:'Azul gris',hex:'#6E8AA6',tc:'#FAFAF7'},
+  {name:'Amarillo suave',hex:'#D8C27A',tc:'#FAFAF7'},
+  {name:'Verde salvia',hex:'#88A68C',tc:'#FAFAF7'},
+  {name:'Naranja suave',hex:'#D7A36C',tc:'#FAFAF7'},
+  {name:'Morado suave',hex:'#9B86B8',tc:'#FAFAF7'},
+  {name:'Rosa suave',hex:'#C98DA6',tc:'#FAFAF7'},
+  {name:'Marrón suave',hex:'#A28A6B',tc:'#FAFAF7'},
+  {name:'Negro suave',hex:'#3B4652',tc:'#FAFAF7'},
+  {name:'Blanco cálido',hex:'#F4F1EA',tc:'#44515C'},
+  {name:'Celeste',hex:'#8FB9D9',tc:'#FAFAF7'},
+  {name:'Gris suave',hex:'#A6AEB5',tc:'#FAFAF7'}
+];
+
+let popTimer = null;
+let closeTimer = null;
+let sleepAnim = null;
+
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('tb-'+id).classList.add('active');
+}
+
+function buildNums(gridId, from, to){
+  const g = document.getElementById(gridId);
+  let html = '';
+  for(let i=from;i<=to;i++){
+    html += `
+      <div class="cell" onclick="pickNum(${i})">
+        <span class="big-num">${i}</span>
+        <span class="word-num">${numWords[i]}</span>
+      </div>
+    `;
+  }
+  g.innerHTML = html;
+}
+
+function buildAnimals(){
+  const g = document.getElementById('grid-ani');
+  let html = '';
+  animals.forEach((a, i) => {
+    const icon = a.icon.startsWith('http')
+      ? `<img class="animal-img" src="${a.icon}" alt="${a.name}" loading="lazy">`
+      : `<span class="animal-emoji">${a.icon}</span>`;
+    html += `
+      <div class="cell" onclick="pickAnimal(${i})">
+        <div class="animal-media">${icon}</div>
+        <span class="animal-name">${a.name}</span>
+      </div>
+    `;
+  });
+  g.innerHTML = html;
+}
+
+function buildVowels(){
+  const g = document.getElementById('grid-vow');
+  let html = '';
+  vowels.forEach((v, i) => {
+    html += `
+      <div class="cell vowel-cell" onclick="pickVowel(${i})">
+        <span class="big-letter">${v.l}</span>
+        <span class="ani-emoji">${v.e}</span>
+        <span class="animal-name">${v.word}</span>
+      </div>
+    `;
+  });
+  g.innerHTML = html;
+}
+
+function buildAbc(){
+  const g = document.getElementById('grid-abc');
+  let html = '';
+  abcData.forEach((v, i) => {
+    html += `
+      <div class="cell" onclick="pickLetter(${i})">
+        <span class="big-letter">${v.l}</span>
+        <span class="ani-emoji">${v.e}</span>
+      </div>
+    `;
+  });
+  g.innerHTML = html;
+}
+
+function buildColors(){
+  const g = document.getElementById('grid-col');
+  let html = '';
+  colors.forEach((c, i) => {
+    html += `
+      <div class="color-cell" style="background:${c.hex}" onclick="pickColor(${i})">
+        <span class="c-name" style="color:${c.tc}">${c.name}</span>
+      </div>
+    `;
+  });
+  g.innerHTML = html;
+}
+
+function showPopup(contentHTML, name){
+  clearTimeout(popTimer);
+  clearTimeout(closeTimer);
+
+  popTimer = setTimeout(() => {
+    document.getElementById('popup-content').innerHTML = contentHTML;
+    document.getElementById('popup-name').textContent = name || '';
+    document.getElementById('overlay').classList.add('show');
+
+    closeTimer = setTimeout(() => {
+      document.getElementById('overlay').classList.remove('show');
+    }, 2600);
+  }, 250);
+}
+
+function pickNum(n){
+  showPopup(`<div class="popup-big">${n}</div>`, numWords[n]);
+}
+
+function pickAnimal(i){
+  const a = animals[i];
+  const content = a.icon.startsWith('http')
+    ? `<img class="popup-animal" src="${a.icon}" alt="${a.name}">`
+    : `<div class="popup-big" style="font-size:92px;">${a.icon}</div>`;
+  showPopup(content, a.name);
+}
+
+function pickVowel(i){
+  const v = vowels[i];
+  showPopup(
+    `<div class="popup-big">${v.l}</div><div style="font-size:60px;line-height:1;">${v.e}</div>`,
+    v.word
+  );
+}
+
+function pickLetter(i){
+  const v = abcData[i];
+  showPopup(
+    `<div class="popup-big">${v.l}</div><div style="font-size:60px;line-height:1;">${v.e}</div>`,
+    ''
+  );
+}
+
+function pickColor(i){
+  const c = colors[i];
+  clearTimeout(popTimer);
+  clearTimeout(closeTimer);
+
+  popTimer = setTimeout(() => {
+    const fl = document.getElementById('color-flash');
+    fl.style.background = c.hex;
+    document.getElementById('flash-name').style.color = c.tc;
+    document.getElementById('flash-name').textContent = c.name;
+    fl.classList.add('show');
+
+    closeTimer = setTimeout(() => {
+      fl.classList.remove('show');
+    }, 2600);
+  }, 180);
+}
+
+/* THEME */
+function applyTheme(isDark){
+  document.body.classList.toggle('dark', isDark);
+  document.getElementById('theme-label').textContent = isDark ? 'Modo claro' : 'Modo noche';
+  localStorage.setItem('aprendeTema', isDark ? 'dark' : 'light');
+}
+
+function toggleTheme(){
+  applyTheme(!document.body.classList.contains('dark'));
+}
+
+/* SLEEP - stars falling softly */
+function startSleep(){
+  const ss = document.getElementById('sleep-screen');
+  ss.classList.add('show');
+
+  const canvas = document.getElementById('stars-canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+
+  let stars = [];
+  for(let i=0;i<90;i++){
+    stars.push(makeStar(canvas));
+  }
+
+  function makeStar(c, fromTop=false){
+    return {
+      x: Math.random()*c.width,
+      y: fromTop ? -10 : Math.random()*c.height,
+      r: Math.random()*1.7 + 0.35,
+      speed: Math.random()*0.35 + 0.12,
+      a: Math.random()*0.35 + 0.08,
+      maxA: Math.random()*0.32 + 0.12,
+      pulse: Math.random()*0.0025 + 0.0008,
+      dir: 1
+    };
+  }
+
+  function draw(){
+    if(!ss.classList.contains('show')) return;
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    stars.forEach(s => {
+      s.y += s.speed;
+      s.a += s.pulse * s.dir;
+
+      if(s.a >= s.maxA || s.a <= 0.05) s.dir *= -1;
+
+      if(s.y > canvas.height + 12){
+        const ns = makeStar(canvas, true);
+        s.x = ns.x;
+        s.y = ns.y;
+        s.r = ns.r;
+        s.speed = ns.speed;
+        s.a = ns.a;
+        s.maxA = ns.maxA;
+        s.pulse = ns.pulse;
+        s.dir = ns.dir;
+      }
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(220,235,255,' + s.a.toFixed(3) + ')';
+      ctx.fill();
+    });
+
+    sleepAnim = requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  setTimeout(() => {
+    document.getElementById('moon-btn').classList.add('show');
+  }, 1000);
+}
+
+function wakeUp(){
+  const ss = document.getElementById('sleep-screen');
+  ss.classList.remove('show');
+  document.getElementById('moon-btn').classList.remove('show');
+  if(sleepAnim) cancelAnimationFrame(sleepAnim);
+}
+
+/* CLOSE ON TAP OUTSIDE */
+document.getElementById('overlay').addEventListener('click', function(e){
+  if(e.target === this){
+    this.classList.remove('show');
+  }
+});
+document.getElementById('color-flash').addEventListener('click', function(e){
+  if(e.target === this){
+    this.classList.remove('show');
+  }
+});
+
+/* INIT */
+buildNums('grid-n1', 1, 30);
+buildNums('grid-n2', 31, 50);
+buildAnimals();
+buildVowels();
+buildAbc();
+buildColors();
+
+/* LOAD THEME */
+const savedTheme = localStorage.getItem('aprendeTema');
+if(savedTheme === 'dark'){
+  applyTheme(true);
+}else{
+  applyTheme(false);
+}
+</script>
+
+</body>
+</html>
