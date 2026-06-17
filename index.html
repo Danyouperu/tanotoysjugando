@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Aprende Jugando</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
   --bg:#EAF2F8;
   --card:#FFFFFF;
   --primary:#5F7D95;
-  --secondary:#A8C3A0;
   --text:#44515C;
   --muted:#6B7C88;
   --border:#E8DDCF;
@@ -25,7 +24,6 @@ body.dark{
   --bg:#263B5A;
   --card:#4D6785;
   --primary:#F3E9D2;
-  --secondary:#F3E9D2;
   --text:#FAFAF7;
   --muted:#F3E9D2;
   --border:#607A95;
@@ -38,9 +36,13 @@ body.dark{
   box-sizing:border-box;
   margin:0;
   padding:0;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
 }
 
-html,body{
+html,
+body{
   min-height:100vh;
   overflow-x:hidden;
   background:var(--bg);
@@ -54,7 +56,6 @@ body{
   -webkit-tap-highlight-color:transparent;
 }
 
-/* HEADER */
 .header{
   position:relative;
   display:flex;
@@ -70,7 +71,6 @@ body{
   letter-spacing:.2px;
 }
 
-/* THEME BUTTON */
 .theme-btn{
   position:absolute;
   right:0;
@@ -88,7 +88,7 @@ body{
 }
 
 .theme-btn .star{
-  font-size:22px;
+  font-size:33px;
   line-height:1;
   opacity:.92;
   transform:translateY(1px);
@@ -102,19 +102,18 @@ body{
   opacity:.95;
 }
 
-/* TABS */
 .tabs{
   display:flex;
-  gap:6px;
+  gap:28px;
   justify-content:center;
-  margin-bottom:13px;
+  margin-bottom:28px;
   flex-wrap:wrap;
 }
 
 .tab-btn{
-  min-width:72px;
-  min-height:64px;
-  padding:8px 10px 7px;
+  min-width:86px;
+  min-height:86px;
+  padding:10px 12px 9px;
   border-radius:18px;
   border:2px solid var(--primary);
   background:var(--card);
@@ -143,25 +142,24 @@ body{
 }
 
 .tab-icon{
-  font-size:26px;
+  font-size:39px;
   line-height:1;
 }
 
 .tab-text{
-  font-size:10px;
+  font-size:12px;
   line-height:1;
   letter-spacing:.2px;
 }
 
-/* PAGES */
 .page{
   display:none;
 }
+
 .page.active{
   display:block;
 }
 
-/* GRID */
 .grid-wrap{
   display:flex;
   justify-content:center;
@@ -169,16 +167,17 @@ body{
 
 .grid{
   display:grid;
-  gap:8px;
+  gap:10px;
   width:100%;
   max-width:420px;
 }
 
-.g5{ grid-template-columns:repeat(5,1fr); }
-.g4{ grid-template-columns:repeat(4,1fr); }
-.g3{ grid-template-columns:repeat(3,1fr); }
+.g5,
+.g4,
+.g3{
+  grid-template-columns:repeat(3,1fr);
+}
 
-/* CELLS */
 .cell{
   display:flex;
   flex-direction:column;
@@ -187,28 +186,33 @@ body{
   background:var(--card);
   border-radius:16px;
   cursor:pointer;
-  padding:7px 4px 6px;
-  gap:3px;
-  min-height:72px;
+  padding:8px 4px 7px;
+  gap:4px;
+  min-height:104px;
   box-shadow:var(--shadow);
   border:1.5px solid var(--border);
   transition:transform .12s cubic-bezier(.34,1.56,.64,1), background .2s ease, color .2s ease, border-color .2s ease;
   -webkit-tap-highlight-color:transparent;
+  font-family:'Nunito',sans-serif;
 }
 
 .cell:active{
   transform:scale(.88);
 }
 
-.cell.selected{
-  background:var(--soft);
-  animation:bpop .22s cubic-bezier(.34,1.8,.64,1);
+button.cell,
+button.color-cell{
+  appearance:none;
+  -webkit-appearance:none;
 }
 
-@keyframes bpop{
-  0%{ transform:scale(1); }
-  50%{ transform:scale(1.12); }
-  100%{ transform:scale(1); }
+.tab-btn:focus-visible,
+.theme-btn:focus-visible,
+.cell:focus-visible,
+.color-cell:focus-visible,
+.moon-btn:focus-visible{
+  outline:4px solid var(--soft);
+  outline-offset:4px;
 }
 
 .big-num{
@@ -219,7 +223,7 @@ body{
 }
 
 .word-num{
-  font-size:8px;
+  font-size:14px;
   color:var(--muted);
   text-align:center;
   line-height:1.05;
@@ -234,61 +238,39 @@ body{
 }
 
 .ani-emoji{
-  font-size:22px;
+  font-size:33px;
   line-height:1;
 }
 
 .animal-name{
-  font-size:8px;
+  font-size:14px;
   color:var(--muted);
   text-align:center;
   line-height:1.05;
   font-weight:700;
 }
 
-.animal-media{
-  width:54px;
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.animal-img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  display:block;
-}
-
-.animal-emoji{
-  font-size:34px;
-  line-height:1;
-}
-
-.popup-animal{
-  width:150px;
-  height:150px;
-  object-fit:contain;
-  display:block;
-  margin:0 auto;
-}
-
 .cell.vowel-cell{
-  min-height:88px;
+  min-height:120px;
 }
+
 .vowel-cell .big-letter{
   font-size:36px;
 }
+
 .vowel-cell .ani-emoji{
-  font-size:24px;
+  font-size:36px;
 }
 
-/* COLORS */
+.animal-emoji{
+  font-size:51px;
+  line-height:1;
+}
+
 .color-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:28px;
   max-width:320px;
   margin:0 auto;
   padding:10px 0 0;
@@ -306,6 +288,7 @@ body{
   border:2px solid rgba(255,255,255,.32);
   transition:transform .12s cubic-bezier(.34,1.56,.64,1);
   -webkit-tap-highlight-color:transparent;
+  font-family:'Nunito',sans-serif;
 }
 
 .color-cell:active{
@@ -313,7 +296,7 @@ body{
 }
 
 .c-name{
-  font-size:10px;
+  font-size:14px;
   font-family:'Nunito',sans-serif;
   text-align:center;
   line-height:1.05;
@@ -321,7 +304,6 @@ body{
   padding:0 6px;
 }
 
-/* OVERLAY POPUP */
 .overlay{
   display:none;
   position:fixed;
@@ -367,6 +349,16 @@ body{
   font-weight:800;
 }
 
+.popup-icon{
+  font-size:90px;
+  line-height:1;
+}
+
+.popup-animal{
+  font-size:150px;
+  line-height:1;
+}
+
 .popup-name{
   font-size:24px;
   color:var(--primary);
@@ -374,7 +366,6 @@ body{
   font-weight:800;
 }
 
-/* COLOR FLASH */
 .color-flash{
   display:none;
   position:fixed;
@@ -395,7 +386,6 @@ body{
   font-weight:800;
 }
 
-/* SLEEP */
 .sleep-screen{
   display:none;
   position:fixed;
@@ -429,7 +419,6 @@ body{
   letter-spacing:.2px;
 }
 
-/* MOON BUTTON */
 .moon-btn{
   position:absolute;
   top:18px;
@@ -437,7 +426,7 @@ body{
   z-index:2;
   background:none;
   border:none;
-  font-size:32px;
+  font-size:48px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   opacity:0;
@@ -448,14 +437,25 @@ body{
   opacity:1;
 }
 
-/* RESPONSIVE */
 @media (max-width:390px){
   body{ padding:0 10px 18px; }
-  .tab-btn{ min-width:67px; min-height:62px; padding:7px 8px 6px; }
-  .tab-icon{ font-size:24px; }
-  .tab-text{ font-size:9px; }
-  .grid{ gap:7px; }
-  .cell{ min-height:68px; }
+  .tabs{ gap:28px; }
+  .tab-btn{ min-width:80px; min-height:82px; padding:8px 9px 7px; }
+  .tab-icon{ font-size:36px; }
+  .tab-text{ font-size:11px; }
+  .grid{ gap:10px; }
+  .cell{ min-height:98px; }
+  .color-grid{ gap:28px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
 }
 </style>
 </head>
@@ -464,101 +464,98 @@ body{
 <div class="header">
   <h1>🌱 Aprende Jugando</h1>
 
-  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Cambiar modo">
-    <span class="star">⭐</span>
+  <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Cambiar modo de color" aria-pressed="false">
+    <span class="star" aria-hidden="true">⭐</span>
     <span class="label" id="theme-label">Modo noche</span>
   </button>
 </div>
 
-<div class="tabs">
-  <button class="tab-btn active" id="tb-n1" onclick="goPage('n1')">
-    <span class="tab-icon">1️⃣</span>
-    <span class="tab-text">1–30</span>
+<div class="tabs" role="tablist" aria-label="Secciones de aprendizaje">
+  <button class="tab-btn active" id="tb-n1" type="button" role="tab" aria-selected="true" aria-controls="page-n1" onclick="goPage('n1')" aria-label="Números del 1 al 30">
+    <span class="tab-icon" aria-hidden="true">1️⃣</span>
+    <span class="tab-text">1-30</span>
   </button>
 
-  <button class="tab-btn" id="tb-n2" onclick="goPage('n2')">
-    <span class="tab-icon">2️⃣</span>
-    <span class="tab-text">31–50</span>
+  <button class="tab-btn" id="tb-n2" type="button" role="tab" aria-selected="false" aria-controls="page-n2" onclick="goPage('n2')" aria-label="Números del 31 al 50">
+    <span class="tab-icon" aria-hidden="true">2️⃣</span>
+    <span class="tab-text">31-50</span>
   </button>
 
-  <button class="tab-btn" id="tb-ani" onclick="goPage('ani')">
-    <span class="tab-icon">🐾</span>
+  <button class="tab-btn" id="tb-ani" type="button" role="tab" aria-selected="false" aria-controls="page-ani" onclick="goPage('ani')" aria-label="Animales">
+    <span class="tab-icon" aria-hidden="true">🐾</span>
     <span class="tab-text">Animales</span>
   </button>
 
-  <button class="tab-btn" id="tb-vow" onclick="goPage('vow')">
-    <span class="tab-icon">🅰️</span>
+  <button class="tab-btn" id="tb-vow" type="button" role="tab" aria-selected="false" aria-controls="page-vow" onclick="goPage('vow')" aria-label="Vocales">
+    <span class="tab-icon" aria-hidden="true">🅰️</span>
     <span class="tab-text">Vocales</span>
   </button>
 
-  <button class="tab-btn" id="tb-abc" onclick="goPage('abc')">
-    <span class="tab-icon">🔤</span>
+  <button class="tab-btn" id="tb-abc" type="button" role="tab" aria-selected="false" aria-controls="page-abc" onclick="goPage('abc')" aria-label="Abecedario">
+    <span class="tab-icon" aria-hidden="true">🔤</span>
     <span class="tab-text">Abecedario</span>
   </button>
 
-  <button class="tab-btn" id="tb-col" onclick="goPage('col')">
-    <span class="tab-icon">🎨</span>
+  <button class="tab-btn" id="tb-col" type="button" role="tab" aria-selected="false" aria-controls="page-col" onclick="goPage('col')" aria-label="Colores">
+    <span class="tab-icon" aria-hidden="true">🎨</span>
     <span class="tab-text">Colores</span>
   </button>
 
-  <button class="tab-btn" id="tb-off" onclick="startSleep()">
-    <span class="tab-icon">😴</span>
-    <span class="tab-text">Apagar</span>
+  <button class="tab-btn" id="tb-off" type="button" onclick="startSleep()" aria-label="Modo descanso">
+    <span class="tab-icon" aria-hidden="true">😴</span>
+    <span class="tab-text">Descanso</span>
   </button>
 </div>
 
-<div class="page active" id="page-n1">
+<div class="page active" id="page-n1" role="tabpanel" aria-labelledby="tb-n1">
   <div class="grid-wrap">
     <div class="grid g5" id="grid-n1"></div>
   </div>
 </div>
 
-<div class="page" id="page-n2">
+<div class="page" id="page-n2" role="tabpanel" aria-labelledby="tb-n2" hidden>
   <div class="grid-wrap">
     <div class="grid g5" id="grid-n2"></div>
   </div>
 </div>
 
-<div class="page" id="page-ani">
+<div class="page" id="page-ani" role="tabpanel" aria-labelledby="tb-ani" hidden>
   <div class="grid-wrap">
     <div class="grid g4" id="grid-ani"></div>
   </div>
 </div>
 
-<div class="page" id="page-vow">
+<div class="page" id="page-vow" role="tabpanel" aria-labelledby="tb-vow" hidden>
   <div class="grid-wrap">
     <div class="grid g3" id="grid-vow"></div>
   </div>
 </div>
 
-<div class="page" id="page-abc">
+<div class="page" id="page-abc" role="tabpanel" aria-labelledby="tb-abc" hidden>
   <div class="grid-wrap">
     <div class="grid g5" id="grid-abc"></div>
   </div>
 </div>
 
-<div class="page" id="page-col">
+<div class="page" id="page-col" role="tabpanel" aria-labelledby="tb-col" hidden>
   <div class="color-grid" id="grid-col"></div>
 </div>
 
-<!-- OVERLAY POPUP -->
-<div class="overlay" id="overlay">
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-live="polite" tabindex="-1" aria-labelledby="popup-name">
   <div class="popup">
     <div id="popup-content"></div>
     <div class="popup-name" id="popup-name"></div>
   </div>
 </div>
 
-<!-- COLOR FLASH -->
-<div class="color-flash" id="color-flash">
+<div class="color-flash" id="color-flash" aria-live="polite">
   <div class="flash-name" id="flash-name"></div>
 </div>
 
-<!-- SLEEP -->
 <div class="sleep-screen" id="sleep-screen">
-  <canvas class="stars-canvas" id="stars-canvas"></canvas>
+  <canvas class="stars-canvas" id="stars-canvas" aria-hidden="true"></canvas>
   <div class="sleep-msg">Buen descanso 🌙</div>
-  <button class="moon-btn" id="moon-btn" onclick="wakeUp()" aria-label="Volver">
+  <button class="moon-btn" id="moon-btn" type="button" onclick="wakeUp()" aria-label="Volver">
     🌙
   </button>
 </div>
@@ -576,23 +573,16 @@ const numWords = [
 ];
 
 const animals = [
-  {name:'Perro',icon:'🐶'},{name:'Gato',icon:'🐱'},{name:'Gallina',icon:'🐔'},
-  {name:'Vaca',icon:'🐮'},{name:'Caballo',icon:'🐴'},{name:'Burro',icon:'🫏'},
-  {name:'Llama',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Wikipedia%2020%20Llamita.svg'},
-  {name:'Alpaca',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Alpaca%20standing.svg'},
-  {name:'Conejo',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/WP25%20Rabbit%20-%20black.svg'},
-  {name:'Loro',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-parrot.svg'},
-  {name:'Mono',icon:'🐒'},{name:'Cóndor',icon:'🦅'},
-  {name:'Cocodrilo',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-crocodile.svg'},
-  {name:'Tucán',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Toucan%20by%20gnokii.svg'},
-  {name:'Oso',icon:'🐻'},
-  {name:'Delfín',icon:'🐬'},{name:'Hormiga',icon:'🐜'},{name:'Mariposa',icon:'🦋'},
-  {name:'Abeja',icon:'🐝'},{name:'León',icon:'🦁'},{name:'Elefante',icon:'🐘'},
-  {name:'Pingüino',icon:'🐧'},{name:'Colibrí',icon:'🐦'},{name:'Iguana',icon:'🦎'},
-  {name:'Tiburón',icon:'🦈'},{name:'Vicuña',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Vicu%C3%B1a%20standing.svg'},
-  {name:'Tortuga',icon:'🐢'},{name:'Rana',icon:'🐸'},
-  {name:'Pato',icon:'https://commons.wikimedia.org/wiki/Special:FilePath/Creative-Tail-Animal-duck.svg'},
-  {name:'Pez',icon:'🐟'}
+  {name:'Perro',e:'🐶'},{name:'Gato',e:'🐱'},{name:'Gallina',e:'🐔'},
+  {name:'Vaca',e:'🐮'},{name:'Caballo',e:'🐴'},{name:'Burro',e:'🫏'},
+  {name:'Llama',e:'🦙'},{name:'Alpaca',e:'🐑'},{name:'Cuy',e:'🐹'},
+  {name:'Loro',e:'🦜'},{name:'Mono',e:'🐒'},{name:'Cóndor',e:'🦅'},
+  {name:'Caimán',e:'🐊'},{name:'Tucán',e:'🐦'},{name:'Oso',e:'🐻'},
+  {name:'Delfín',e:'🐬'},{name:'Hormiga',e:'🐜'},{name:'Mariposa',e:'🦋'},
+  {name:'Abeja',e:'🐝'},{name:'León',e:'🦁'},{name:'Elefante',e:'🐘'},
+  {name:'Pingüino',e:'🐧'},{name:'Colibrí',e:'🕊️'},{name:'Iguana',e:'🦎'},
+  {name:'Tiburón',e:'🦈'},{name:'Vicuña',e:'🦌'},{name:'Tortuga',e:'🐢'},
+  {name:'Rana',e:'🐸'},{name:'Pato',e:'🦆'},{name:'Pez',e:'🐟'}
 ];
 
 const vowels = [
@@ -604,27 +594,27 @@ const vowels = [
 ];
 
 const abcData = [
-  {l:'A',e:'🦅'},{l:'B',e:'🦬'},{l:'C',e:'🐊'},{l:'D',e:'🐬'},{l:'E',e:'🐘'},
+  {l:'A',e:'🦅'},{l:'B',e:'🐋'},{l:'C',e:'🐊'},{l:'D',e:'🐬'},{l:'E',e:'🐘'},
   {l:'F',e:'🦩'},{l:'G',e:'🦍'},{l:'H',e:'🦛'},{l:'I',e:'🦎'},{l:'J',e:'🐆'},
   {l:'L',e:'🦁'},{l:'M',e:'🐒'},{l:'N',e:'🦋'},{l:'Ñ',e:'🐦'},{l:'O',e:'🐻'},
   {l:'P',e:'🦜'},{l:'Q',e:'🐐'},{l:'R',e:'🐸'},{l:'S',e:'🐍'},{l:'T',e:'🐢'},
-  {l:'U',e:'🦄'},{l:'V',e:'🦊'},{l:'W',e:'🐺'},{l:'X',e:'🦂'},{l:'Y',e:'🦌'},
+  {l:'U',e:'🦄'},{l:'V',e:'🦊'},{l:'W',e:'🐺'},{l:'X',e:'🦀'},{l:'Y',e:'🦌'},
   {l:'Z',e:'🦓'}
 ];
 
 const colors = [
-  {name:'Rojo suave',hex:'#C97A7A',tc:'#FAFAF7'},
-  {name:'Azul gris',hex:'#6E8AA6',tc:'#FAFAF7'},
-  {name:'Amarillo suave',hex:'#D8C27A',tc:'#FAFAF7'},
-  {name:'Verde salvia',hex:'#88A68C',tc:'#FAFAF7'},
-  {name:'Naranja suave',hex:'#D7A36C',tc:'#FAFAF7'},
-  {name:'Morado suave',hex:'#9B86B8',tc:'#FAFAF7'},
-  {name:'Rosa suave',hex:'#C98DA6',tc:'#FAFAF7'},
-  {name:'Marrón suave',hex:'#A28A6B',tc:'#FAFAF7'},
-  {name:'Negro suave',hex:'#3B4652',tc:'#FAFAF7'},
-  {name:'Blanco cálido',hex:'#F4F1EA',tc:'#44515C'},
-  {name:'Celeste',hex:'#8FB9D9',tc:'#FAFAF7'},
-  {name:'Gris suave',hex:'#A6AEB5',tc:'#FAFAF7'}
+  {name:'Rojo',hex:'#FF0000',tc:'#FFFFFF'},
+  {name:'Azul',hex:'#0066FF',tc:'#FFFFFF'},
+  {name:'Amarillo',hex:'#FFD700',tc:'#222222'},
+  {name:'Verde',hex:'#00AA00',tc:'#FFFFFF'},
+  {name:'Naranja',hex:'#FF7A00',tc:'#222222'},
+  {name:'Morado',hex:'#8000FF',tc:'#FFFFFF'},
+  {name:'Rosa',hex:'#FF4FA3',tc:'#222222'},
+  {name:'Marrón',hex:'#8B4513',tc:'#FFFFFF'},
+  {name:'Negro',hex:'#000000',tc:'#FFFFFF'},
+  {name:'Blanco',hex:'#FFFFFF',tc:'#222222'},
+  {name:'Celeste',hex:'#00BFFF',tc:'#222222'},
+  {name:'Gris',hex:'#808080',tc:'#FFFFFF'}
 ];
 
 let popTimer = null;
@@ -632,10 +622,21 @@ let closeTimer = null;
 let sleepAnim = null;
 
 function goPage(id){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  document.getElementById('tb-'+id).classList.add('active');
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.hidden = true;
+  });
+  document.querySelectorAll('.tab-btn[role="tab"]').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+
+  const page = document.getElementById('page-'+id);
+  const tab = document.getElementById('tb-'+id);
+  page.classList.add('active');
+  page.hidden = false;
+  tab.classList.add('active');
+  tab.setAttribute('aria-selected', 'true');
 }
 
 function buildNums(gridId, from, to){
@@ -643,10 +644,10 @@ function buildNums(gridId, from, to){
   let html = '';
   for(let i=from;i<=to;i++){
     html += `
-      <div class="cell" onclick="pickNum(${i})">
-        <span class="big-num">${i}</span>
+      <button class="cell" type="button" onclick="pickNum(${i})" aria-label="Número ${i}, ${numWords[i]}">
+        <span class="big-num" aria-hidden="true">${i}</span>
         <span class="word-num">${numWords[i]}</span>
-      </div>
+      </button>
     `;
   }
   g.innerHTML = html;
@@ -656,14 +657,11 @@ function buildAnimals(){
   const g = document.getElementById('grid-ani');
   let html = '';
   animals.forEach((a, i) => {
-    const icon = a.icon.startsWith('http')
-      ? `<img class="animal-img" src="${a.icon}" alt="${a.name}" loading="lazy">`
-      : `<span class="animal-emoji">${a.icon}</span>`;
     html += `
-      <div class="cell" onclick="pickAnimal(${i})">
-        <div class="animal-media">${icon}</div>
+      <button class="cell" type="button" onclick="pickAnimal(${i})" aria-label="Animal: ${a.name}">
+        <span class="animal-emoji" aria-hidden="true">${a.e}</span>
         <span class="animal-name">${a.name}</span>
-      </div>
+      </button>
     `;
   });
   g.innerHTML = html;
@@ -674,11 +672,11 @@ function buildVowels(){
   let html = '';
   vowels.forEach((v, i) => {
     html += `
-      <div class="cell vowel-cell" onclick="pickVowel(${i})">
-        <span class="big-letter">${v.l}</span>
-        <span class="ani-emoji">${v.e}</span>
+      <button class="cell vowel-cell" type="button" onclick="pickVowel(${i})" aria-label="Vocal ${v.l}, ${v.word}">
+        <span class="big-letter" aria-hidden="true">${v.l}</span>
+        <span class="ani-emoji" aria-hidden="true">${v.e}</span>
         <span class="animal-name">${v.word}</span>
-      </div>
+      </button>
     `;
   });
   g.innerHTML = html;
@@ -689,10 +687,10 @@ function buildAbc(){
   let html = '';
   abcData.forEach((v, i) => {
     html += `
-      <div class="cell" onclick="pickLetter(${i})">
-        <span class="big-letter">${v.l}</span>
-        <span class="ani-emoji">${v.e}</span>
-      </div>
+      <button class="cell" type="button" onclick="pickLetter(${i})" aria-label="Letra ${v.l}">
+        <span class="big-letter" aria-hidden="true">${v.l}</span>
+        <span class="ani-emoji" aria-hidden="true">${v.e}</span>
+      </button>
     `;
   });
   g.innerHTML = html;
@@ -703,9 +701,9 @@ function buildColors(){
   let html = '';
   colors.forEach((c, i) => {
     html += `
-      <div class="color-cell" style="background:${c.hex}" onclick="pickColor(${i})">
+      <button class="color-cell" type="button" style="background:${c.hex}" onclick="pickColor(${i})" aria-label="Color ${c.name}">
         <span class="c-name" style="color:${c.tc}">${c.name}</span>
-      </div>
+      </button>
     `;
   });
   g.innerHTML = html;
@@ -716,12 +714,14 @@ function showPopup(contentHTML, name){
   clearTimeout(closeTimer);
 
   popTimer = setTimeout(() => {
+    const overlay = document.getElementById('overlay');
     document.getElementById('popup-content').innerHTML = contentHTML;
     document.getElementById('popup-name').textContent = name || '';
-    document.getElementById('overlay').classList.add('show');
+    overlay.classList.add('show');
+    overlay.focus();
 
     closeTimer = setTimeout(() => {
-      document.getElementById('overlay').classList.remove('show');
+      overlay.classList.remove('show');
     }, 2600);
   }, 250);
 }
@@ -732,16 +732,13 @@ function pickNum(n){
 
 function pickAnimal(i){
   const a = animals[i];
-  const content = a.icon.startsWith('http')
-    ? `<img class="popup-animal" src="${a.icon}" alt="${a.name}">`
-    : `<div class="popup-big" style="font-size:92px;">${a.icon}</div>`;
-  showPopup(content, a.name);
+  showPopup(`<div class="popup-animal">${a.e}</div>`, a.name);
 }
 
 function pickVowel(i){
   const v = vowels[i];
   showPopup(
-    `<div class="popup-big">${v.l}</div><div style="font-size:60px;line-height:1;">${v.e}</div>`,
+    `<div class="popup-big">${v.l}</div><div class="popup-icon">${v.e}</div>`,
     v.word
   );
 }
@@ -749,7 +746,7 @@ function pickVowel(i){
 function pickLetter(i){
   const v = abcData[i];
   showPopup(
-    `<div class="popup-big">${v.l}</div><div style="font-size:60px;line-height:1;">${v.e}</div>`,
+    `<div class="popup-big">${v.l}</div><div class="popup-icon">${v.e}</div>`,
     ''
   );
 }
@@ -768,22 +765,25 @@ function pickColor(i){
 
     closeTimer = setTimeout(() => {
       fl.classList.remove('show');
-    }, 2600);
+    }, 2000);
   }, 180);
 }
 
-/* THEME */
 function applyTheme(isDark){
   document.body.classList.toggle('dark', isDark);
   document.getElementById('theme-label').textContent = isDark ? 'Modo claro' : 'Modo noche';
-  localStorage.setItem('aprendeTema', isDark ? 'dark' : 'light');
+  document.getElementById('theme-btn').setAttribute('aria-pressed', String(isDark));
+  try{
+    localStorage.setItem('aprendeTema', isDark ? 'dark' : 'light');
+  }catch(error){
+    // El modo visual sigue funcionando aunque el navegador bloquee localStorage.
+  }
 }
 
 function toggleTheme(){
   applyTheme(!document.body.classList.contains('dark'));
 }
 
-/* SLEEP - stars falling softly */
 function startSleep(){
   const ss = document.getElementById('sleep-screen');
   ss.classList.add('show');
@@ -857,7 +857,9 @@ function wakeUp(){
   if(sleepAnim) cancelAnimationFrame(sleepAnim);
 }
 
-/* CLOSE ON TAP OUTSIDE */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+
 document.getElementById('overlay').addEventListener('click', function(e){
   if(e.target === this){
     this.classList.remove('show');
@@ -869,7 +871,6 @@ document.getElementById('color-flash').addEventListener('click', function(e){
   }
 });
 
-/* INIT */
 buildNums('grid-n1', 1, 30);
 buildNums('grid-n2', 31, 50);
 buildAnimals();
@@ -877,13 +878,14 @@ buildVowels();
 buildAbc();
 buildColors();
 
-/* LOAD THEME */
-const savedTheme = localStorage.getItem('aprendeTema');
-if(savedTheme === 'dark'){
-  applyTheme(true);
-}else{
-  applyTheme(false);
+let savedTheme = 'light';
+try{
+  savedTheme = localStorage.getItem('aprendeTema') || 'light';
+}catch(error){
+  savedTheme = 'light';
 }
+
+applyTheme(savedTheme === 'dark');
 </script>
 
 </body>
